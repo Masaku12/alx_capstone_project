@@ -35,8 +35,8 @@ In the future, we plan to enhance this project with:
 
 ## Contact Information:
 
-Your Name: Ambrose Matata
-GitHub: Masaku12
-Email: ambrose.matata11@gmail.com
-LinkedIn: [Ambrose Matata](https://www.linkedin.com/in/ambrosematata/)
-Personal Website: 
+- **Your Name:** Ambrose Matata
+- **GitHub:** Masaku12
+- **Email:** ambrose.matata11@gmail.com
+- **LinkedIn:** [Ambrose Matata](https://www.linkedin.com/in/ambrosematata/)
+- **Personal Website:** 
