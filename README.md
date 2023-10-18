@@ -24,9 +24,9 @@ This project leverages the following technologies:
 
 ## Screenshots or Demo:
 
-![Recipe Finder Mobile](Workflow_images/Recipe_Finder_Mobile.png)
+![Recipe Finder Mobile](Workflow_Images/Recipe_Finder_Mobile.png)
 
-![Recipe Finder Web](Workflow_images/Recipe_Finder_Web.png)
+![Recipe Finder Web](Workflow_Images/Recipe_Finder_Web.png)
 
 ## Roadmap and Future Enhancements:
 
