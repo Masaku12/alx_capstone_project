@@ -14,6 +14,7 @@ header {
   color: #fff;
   padding: 10px 0;
   text-align: center;
+  max-width: 100%;
 }
 
 header nav ul {
@@ -43,6 +44,8 @@ footer {
   color: #fff;
   padding: 20px 0;
   text-align: center;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 footer p {
