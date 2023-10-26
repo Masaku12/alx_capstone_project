@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <a href="/home">
+        <button class="button">Back </button>
+    </a>
+    <h1>Find and Start Cooking</h1>
+    <input type="text" id="searchInput" placeholder="Search for recipes...">
+    <a href="/results">
+        <button id="searchButton">Search for Recipes</button>
+    </a>
+
+    <section id="featured-section">
+        <h2>Featured Recipes</h2>
+        <div class="featured-recipes">
+            <div class="featured-recipe">
+                <img src="featured-recipe1.jpg" alt="Featured Recipe 1">
+                <h3>Delicious Pasta Carbonara</h3>
+            </div>
+            <div class="featured-recipe">
+                <img src="featured-recipe2.jpg" alt="Featured Recipe 2">
+                <h3>Mouthwatering Chocolate Cake</h3>
+            </div>
+            <div class="featured-recipe">
+                <img src="featured-recipe3.jpg" alt="Featured Recipe 3">
+                <h3>Savory Grilled Chicken</h3>
+            </div>
+        </div>
+    </section>
+
+    <section id="popular-foods">
+        <h2>Popular Foods</h2>
+        <div class="popular-food-list">
+            <div class="popular-food">Italian</div>
+            <div class="popular-food">Mexican</div>
+            <div class="popular-food">Indian</div>
+            <div class="popular-food">Asian</div>
+            <div class="popular-food">Vegetarian</div>
+        </div>
+    </section>
+
+    <section id="quick-tips">
+        <h2>Cooking Tips</h2>
+        <ul>
+            <li>Quickly peel garlic by placing cloves in a sealed container and shaking.</li>
+            <li>Use fresh herbs for extra flavor in your dishes.</li>
+            <li>Invest in quality kitchen utensils for better results.</li>
+            <li>Read a recipe thoroughly before you start cooking.</li>
+        </ul>
+    </section>
+
+    <section id="healthy-options">
+        <h2>Healthy Eating</h2>
+        <p>Explore a variety of healthy recipes to support your well-being and fitness goals.</p>
+        <a href="/results?query=healthy"><button>Discover Healthy Recipes</button></a>
+    </section>
+
+    <style>
+        /* General page styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+    
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            margin: 30px 0;
+            color: #FF5733;
+        }
+    
+        /* Search input and button */
+        #searchInput {
+            width: 60%;
+            padding: 15px;
+            margin: 20px 0;
+            border: none;
+            border-radius: 25px;
+            background-color: black;
+            color: #f7f7f7;
+            font-size: 20px;
+        }
+    
+        #searchButton {
+            padding: 15px 30px;
+            background-color: #FF5733;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 24px;
+            transition: background-color 0.3s;
+        }
+    
+        #searchButton:hover {
+            background-color: #D44200;
+        }
+    
+        /* Featured recipes section */
+        #featured-section {
+            text-align: center;
+            padding: 30px;
+        }
+    
+        .featured-recipes {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+    
+        .featured-recipe {
+            background-color: white;
+            border: 2px solid #FF5733;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s;
+            overflow: hidden;
+            width: 30%;
+        }
+    
+        .featured-recipe:hover {
+            transform: translateY(-10px);
+        }
+    
+        .featured-recipe img {
+            max-width: 100%;
+            height: auto;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+    
+        .featured-recipe h3 {
+            font-size: 28px;
+            margin: 15px 0;
+            color: #333;
+        }
+    
+        /* Popular foods section */
+        #popular-foods {
+            text-align: center;
+            padding: 30px;
+        }
+    
+        .popular-food-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+    
+        .popular-food {
+            background-color: #FF5733;
+            padding: 15px 30px;
+            border-radius: 30px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            transition: background-color 0.3s;
+        }
+    
+        .popular-food:hover {
+            background-color: #D44200;
+        }
+    
+        /* Cooking tips section */
+        #quick-tips {
+            text-align: center;
+            padding: 30px;
+        }
+    
+        #quick-tips ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+    
+        #quick-tips li {
+            font-size: 24px;
+            margin: 20px;
+        }
+    
+        /* Healthy eating section */
+        #healthy-options {
+            text-align: center;
+            padding: 30px;
+        }
+    
+        #healthy-options p {
+            font-size: 24px;
+            margin: 30px 0;
+            color: #333;
+        }
+    
+        #healthy-options a button {
+            padding: 15px 30px;
+            background-color: #FF5733;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 24px;
+            transition: background-color 0.3s;
+        }
+    
+        #healthy-options a button:hover {
+            background-color: #D44200;
+        }
+    </style>
+
+    <script>
+        const apiKey = '641f6c8c40ba4e80aa791e80ce8d62a1';
+        const apiBaseUrl = 'https://api.spoonacular.com/recipes';
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value;
+            if (query) {
+                searchRecipes(query);
+            }
+        });
+
+        function searchRecipes(query) {
+            const searchUrl = `${apiBaseUrl}/complexSearch?apiKey=${apiKey}&query=${query}`;
+
+            fetch(searchUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // Store the recipes in local storage
+                    localStorage.setItem('recipes', JSON.stringify(data.results));
+
+                    // Redirect to the results page
+                    window.location.href = 'results.html';
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
+{% endblock %}

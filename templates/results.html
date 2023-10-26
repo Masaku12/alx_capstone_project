@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <a href="/home">
+        <button class="button" >Back </button>
+    </a>
+    <h1>Recipe Finder Results</h1>
+    <div id="recipeList"></div>
+
+    <style>
+        /* Styles for the results page */
+        .results-heading {
+            text-align: center;
+            font-size: 36px;
+            margin: 20px 0;
+            color: #FF5733; /* Custom highlight color */
+        }
+
+        .recipe-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .recipe-card {
+            background: #FFF;
+            border: 1px solid #E1E1E1;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+            overflow: hidden;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .recipe-card img {
+            max-width: 100%;
+            height: auto;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .recipe-card h2 {
+            font-size: 24px;
+            margin: 10px;
+            color: #333;
+        }
+
+        /* Styles for the recipe modal */
+        .recipe-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .recipe-details {
+            background: #FFF;
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            color: #333;
+        }
+
+        .recipe-details h2 {
+            font-size: 28px;
+            margin: 10px 0;
+        }
+
+        .recipe-details p {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        .close-button {
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #00fc3f;
+            border-color: #00fc3f;
+            border-radius: 50%;
+        }
+    </style>
+    <script>
+        const recipeList = document.getElementById('recipeList');
+        const apiBaseUrl = 'https://api.spoonacular.com/recipes';
+        const apiKey = '641f6c8c40ba4e80aa791e80ce8d62a1';
+
+        // Retrieve recipes from local storage
+        const recipes = JSON.parse(localStorage.getItem('recipes'));
+
+        if (recipes) {
+            displayRecipes(recipes);
+        } else {
+            recipeList.innerHTML = 'No recipes found.';
+        }
+
+        function displayRecipes(recipes) {
+            recipeList.innerHTML = '';
+
+            recipes.forEach(recipe => {
+                const recipeCard = document.createElement('div');
+                recipeCard.classList.add('recipe-card');
+
+                const recipeImage = document.createElement('img');
+                recipeImage.src = recipe.image;
+                recipeImage.addEventListener('click', () => {
+                    showRecipeDetails(recipe.id);
+                });
+
+                const recipeTitle = document.createElement('h2');
+                recipeTitle.textContent = recipe.title;
+
+                recipeCard.appendChild(recipeImage);
+                recipeCard.appendChild(recipeTitle);
+
+                recipeList.appendChild(recipeCard);
+            });
+        }
+
+        function showRecipeDetails(recipeId) {
+            const detailsUrl = `${apiBaseUrl}/${recipeId}/information?apiKey=${apiKey}`;
+
+            fetch(detailsUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.summary) {
+                        // Create a modal element
+                        const modal = document.createElement('div');
+                        modal.classList.add('recipe-modal');
+
+                        // Create a close button for the modal
+                        const closeButton = document.createElement('span');
+                        closeButton.textContent = 'X';
+                        closeButton.classList.add('close-button');
+                        closeButton.addEventListener('click', () => {
+                            // Close the modal when the close button is clicked
+                            modal.style.display = 'none';
+                        });
+
+                        // Create a container for the recipe details
+                        const recipeDetails = document.createElement('div');
+                        recipeDetails.classList.add('recipe-details');
+                        recipeDetails.innerHTML = `
+                            <h2>${data.title}</h2>
+                            <p>${data.summary}</p>
+                        `;
+
+                        modal.appendChild(closeButton);
+                        modal.appendChild(recipeDetails);
+
+                        // Add the modal to the document
+                        document.body.appendChild(modal);
+                    }
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
+{% endblock %}

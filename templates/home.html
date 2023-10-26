@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section id="hero">
+    <h1>Welcome to Recipe Finder</h1>
+    <p>Discover, Cook, Enjoy!</p>
+    <a href="/search">
+        <button id="searchButton">Search for Recipes</button>
+    </a>
+</section>
+
+<section id="about">
+    <div class="about-container">
+        <h2>About Us</h2>
+        <p>At Recipe Finder, we make it easy for you to find your favorite recipes. Whether you're a cooking enthusiast or a beginner, our app provides a vast collection of delicious recipes to explore. With our user-friendly search and filtering options, you can quickly discover the perfect recipe for any occasion.</p>
+    </div>
+</section>
+
+<section id="features">
+    <h2>Features</h2>
+    <div class="features-container">
+        <div class="feature">
+            <div class="feature-icon">
+                <img src="static/search-icon.png" alt="Search Icon">
+            </div>
+            <h3>Search Recipes</h3>
+            <p>Effortlessly search for recipes based on ingredients, cuisine, or dish names. Our powerful search engine helps you find the perfect recipe in seconds.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">
+                <img src="static/filter-icon.png" alt="Filter Icon">
+            </div>
+            <h3>Filters and Sorting</h3>
+            <p>Refine your search results with filters, including dietary restrictions and sorting options like cooking time. Tailor your recipe choices to your preferences.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">
+                <img src="static/cook-icon.png" alt="Cook Icon">
+            </div>
+            <h3>Cook with Confidence</h3>
+            <p>Step-by-step instructions, ingredients, and cooking tips ensure that your culinary adventure is a success every time you cook.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="contact-container">
+        <h2>Contact Us</h2>
+        <p>If you have any questions or feedback, please don't hesitate to get in touch with us. We value your input and are here to help.</p>
+        <div class="contact-form">
+            <input type="text" placeholder="Your Name">
+            <input type="email" placeholder="Your Email">
+            <textarea placeholder="Your Message"></textarea>
+            <button id="sendButton">Send</button>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.getElementById('searchButton').addEventListener('click', () => {
+        window.location.href = 'search.html';
+    });
+
+    document.getElementById('sendButton').addEventListener('click', () => {
+        // Handle form submission here, e.g., send an email
+        alert('Your message has been sent. Thank you!');
+    });
+</script>
+{% endblock %}
