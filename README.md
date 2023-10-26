@@ -28,6 +28,8 @@ This project leverages the following technologies:
 
 ![Recipe Finder Web](images/Recipe_Finder_Web.png)
 
+![Prototype](images/myrecipefinder.drawio.png)
+
 ## Roadmap and Future Enhancements:
 
 In the future, we plan to enhance this project with:
